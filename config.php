@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('Pacific/Auckland'); // Sets timezone.
 // // // // //
-// SETTINGS // blue cats
+// SETTINGS //
 // // // // //
 
 	// Slingshot login	
@@ -24,9 +24,9 @@ date_default_timezone_set('Pacific/Auckland'); // Sets timezone.
 	// MySQL database settings....
 	$host = 'localhost'; // The host name where your MySQL is hosted at..
 	$user = 'user';      // Your MySQL username
-	$pass = 'pass';     // Your MySQL password
-	$db = 'db';      // Choose the name you want your database to have (or give a pre made one)
-	$table = 'table';     // Choose what the table will be called.
+	$pass = 'pass';      // Your MySQL password
+	$db = 'sumdb';       // Choose the name you want your database to have (or give a pre made one)
+	$table = 'sumtable'; // Choose what the table will be called.
 	
 	// Auto set size? (e.g. 0.46 GB will be automatically showen as 471.04 MB) [0=off, 1=on]
 	// Note to dev, change to BOOL...?
