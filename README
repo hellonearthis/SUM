@@ -3,7 +3,7 @@ Here is the source code of a little web app I made from slingshot.co.nz's API.
 I'm very busy with my studies so I have little to no time to work on this until the brakes.
 
 NOTES:
-savecsv.php is broken (it doesn't have any titles)
+savecsv.php is broken (it doesn't have any titles) and has raw data attached
 
 TODO:
 + I still have to add iTalk.
