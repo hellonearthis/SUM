@@ -45,8 +45,12 @@
 					$("<span class='text'>&nbsp;</span>").css("width",div.width()).appendTo(innerdiv);					
 					div.append(innerdiv);					
 				}
-				var width=Math.round(val/max*100);
-				innerdiv.css("width",width+"%");	
+				var width=(Math.round(val/max*100));
+                                if (width > 100)
+                                    wid=100;
+                                else
+                                    wid=width;
+				innerdiv.css("width",wid+"%");
 				div.find(".text").html(width+" %");
 			}
 		);

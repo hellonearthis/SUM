@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('Pacific/Auckland'); // Sets timezone.
 // // // // //
-// SETTINGS //
+// SETTINGS // blue cats
 // // // // //
 
 	// Slingshot login	
