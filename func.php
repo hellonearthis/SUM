@@ -10,10 +10,6 @@
 // 
 // 
 
-
-
-
-
 // Get function to get input and say what file size format it is, and what you want outputed.
 // Modes: auto or manual *auto detect, if an outSizeFormat is given then out in that format else auto set out size.
 // FUNC($input,$inSizeFormat,$outSizeFormat,$mode)
@@ -43,16 +39,15 @@ function autoSizeFormat($inputSize,$inSizeFormat,$outSizeFormat){
 		// 		break;
 		// 	}
 		
-			include 'config.php'; //incudes the main settings file
+		//	include 'config.php'; //incudes the main settings file
 			// Check if autoSizeMode is enabled if yes then auto set size to human readable format.
-			if ($autoSizeMode) {
+                 //       echo 'autosize '.autoSizeMode;
+			if (autoSizeMode) {
 				// Check if input size is choosen as GB
 				if ($inSizeFormat == "GB") {
 
-
 					// GB to Bytes
 					$GBtoBytes = round($inputSize * 1024 * 1024 * 1024);
-
 					
 					$formatedSize = file_size($GBtoBytes);
 
@@ -64,11 +59,6 @@ function autoSizeFormat($inputSize,$inSizeFormat,$outSizeFormat){
 				return "$inputSize $inSizeFormat";
 			}
 			
-			
-		
-	            
-	
-	
 	}
 }
 
@@ -84,10 +74,10 @@ function file_size($inputSizeBytes)
 // debugIs=Debug Info String
 function debugIs($text){
 	if ("$text") {
-		include 'config.php'; //incudes the main settings file
+	//	include 'config.php'; //incudes the main settings file
 	
 		// If $debugInfo == 1 then show debug info (echo out extra info)
-		if ($debugInfo) {
+		if (debugInfo) {
 			echo "$text<br />\n";
 		}
 	}
@@ -96,41 +86,33 @@ function debugIs($text){
 // debugIs=Debug Info String
 function debugIa($text){
 	if ("$text") {
-		include 'config.php'; //incudes the main settings file
+	//	include 'config.php'; //incudes the main settings file
 	
 		// If $debugInfo == 1 then show debug info (echo out extra info)
-		if ($debugInfo) {
+		if (debugInfo) {
 			print_r($text);
 		}
 	}
 }
 
 function offPeakStatus($startTime,$endTime){
-	
 		#######################################
 		#### on-peak or off-peak checker... ###  (Thanks hellonearthisman, for the switch() case code)
 		#######################################
-		$todaysTime = date("g:i"); // 10:36 am
-		$ampm = date("a"); // am/pm
+//		$todaysTime = date("g:i"); // 10:36 am
+	//	$ampm = date("a"); // am/pm
 	//	$TodaysTime = "1:17";
 	//	$ampm = "am";
 	//	echo $ampm;
 
 	//  if ($TodaysTime > "1:15" And $TodaysTime < "6:45") { // if statement to check if it's inbetween ofpeak time!
-	//	if ($ampm = "am") {
+	//	if ($ampm = "a
+      		$todaysTime = date("g:i"); // 10:36 am
+        	$ampm = date("a"); // am/pm
 
-		switch ($ampm){
-			case "am":
-			if ($todaysTime > "$startTime" And $todaysTime < "$endTime"){
-					$peakStatus = "<b>FREE</b>";
-				}
-				$peakStatus = "On Peak";
-				break;
-			case "pm":
-				$peakStatus = "On Peak";
-				break;
-			}
-		#	echo "Peak status: $PeakStatus";
+                $peakStatus = "On Peak";
+                 if ($todaysTime > $startTime  And $todaysTime < $endTime and $ampm=='am')
+                     {	$peakStatus = "<b>FREE</b>"; }
 		return $peakStatus;
 }
 
@@ -162,7 +144,7 @@ function arrayCSV($input) {
 	
 	//Loop though array and split array into seperate arrays for each title/value.	
 	foreach ($array as &$value) {
-		list ($title,$val) = explode('=',$value,2);
+		list ($title,$val) = explode('=',$value); //,2);
 		$cleanDetailsArrary["$title"] = "$val";
 		}
 		if ($cleanDetailsArrary['Time']){
