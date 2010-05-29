@@ -10,7 +10,7 @@ $csvexporttitle='No,TodaysDateTime,SSDateTime,Username,Account,AmountOwing,DataQ
 	$con = mysql_connect($host, $user, $pass) or die("Can not connect." . mysql_error()); //Connects to Database
 	mysql_select_db($db) or die("Can not connect."); //checks if it connected correctly
 
-	$query = ("SELECT No,TodaysDateTime,SSDateTime,Username,Account,AmountOwing,DataQuotaGB,DataUsedGB,DataOffPeakGB,TodayDataSentTotalGB,TodayDataRcvdTotalGB,TodayDataSentOffPeakGB,TodayDataRcvdOffPeakGB,DaysLeftTillReBill,TotalLeftGB,TotalLeftFromCapGB,UsePerDayGB,TotalSendOnPeakToday,TotalRcvdOnPeakToday,LastBilled,NextBill,iTalkMinutes,PercentLeft,PercentUsed,TodaysUsage FROM $table"); // query's what data that is going to be taken from the SQL database
+	$query = ("SELECT No,TodaysDateTime,SSDateTime,Username,Account,AmountOwing,DataQuotaGB,DataUsedGB,DataOffPeakGB,TodayDataSentTotalGB,TodayDataRcvdTotalGB,TodayDataSentOffPeakGB,TodayDataRcvdOffPeakGB,DaysLeftTillReBill,TotalLeftGB,TotalLeftFromCapGB,UsePerDayGB,TotalSendOnPeakToday,TotalRcvdOnPeakToday,LastBilled,NextBill,iTalkMinutes,PercentLeft,PercentUsed,TodaysUsage,MissingData FROM $table"); // query's what data that is going to be taken from the SQL database
 
 		//Get the result of the query as a CSV file.
 		    $sql_csv = mysql_query($query) or die("Error: " . mysql_error());
