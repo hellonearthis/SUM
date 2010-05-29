@@ -24,7 +24,8 @@ $TodaysTime = date("g:i:s a"); // 10:36:12 pm
 	curl_setopt($ch, CURLOPT_HEADER, 0);
 	curl_setopt($ch, CURLOPT_VERBOSE, 1);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_URL, $address);
+//	curl_setopt($ch, CURLOPT_URL, $address);
+	curl_setopt($ch, CURLOPT_URL, address);
 
 	$URLoutput = curl_exec($ch);
 	if (!$URLoutput) {

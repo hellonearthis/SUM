@@ -8,6 +8,10 @@ date_default_timezone_set('Pacific/Auckland'); // Sets timezone.
 	$addressName = 'user'; // SS login username
 	$addressPass = 'pass'; // SS login password (if you have a ( ' ) in your password then put a ( \ ) infront of it. eg. "user'pass" should be "user\'pass")
 
+	$address = "https://www.slingshot.co.nz/MyAccount/API/?username=".urlencode("$addressName")."&pwd=".urlencode("$addressPass");
+    define(address, $address);  // make the address a constant
+
+
 	// Change the 25 to what ever your data cap is.
 	$DataCap = "25"; 
 
@@ -30,7 +34,8 @@ date_default_timezone_set('Pacific/Auckland'); // Sets timezone.
 
 	// Auto set size? (e.g. 0.46 GB will be automatically showen as 471.04 MB) [0=off, 1=on]
 	// Note to dev, change to BOOL...?
-	$autoSizeMode = 1;
+    define(autoSizeMode, 1);
+//	$autoSizeMode = 1;
 
 	// CSV output file name format:
 	$fileStartName = 'Archive_of_SUM'; 						//File name when saved to .csv 
@@ -46,8 +51,9 @@ date_default_timezone_set('Pacific/Auckland'); // Sets timezone.
 	$siteTitle = "Slingshot Usage Monitor (SUM)";
 
 	// Turn on debug info [0=off, 1=on]
-	$debugInfo = 1;
+	define(debugInfo, TRUE);
+	//	$debugInfo = 1;
 
 // End of settings!!
-$address = "https://www.slingshot.co.nz/MyAccount/API/?username=".urlencode("$addressName")."&pwd=".urlencode("$addressPass");
+
 ?>

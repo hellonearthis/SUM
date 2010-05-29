@@ -25,11 +25,11 @@ if ($result) {
 	// Dev note: do we even need the while loop...
 	while ($array = mysql_fetch_assoc($result)) {
 		$No                     = "$array[No]"; 
-		$SSTime                 = "$array[SSDateTime]";
+		$SSTime               = "$array[SSDateTime]";
 		 
-		$Username               = "$array[Username]"; 
-		$Account                = "$array[Account]"; 
-		$AmountOwing            = "$array[AmountOwing]"; 
+		$Username           = "$array[Username]"; 
+		$Account              = "$array[Account]"; 
+		$AmountOwing      = "$array[AmountOwing]";
 		
 		$TodaysDate             = "$array[TodaysDate]"; 
 		$DataQuotaGB            = "$array[DataQuotaGB]"; 
