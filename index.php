@@ -9,7 +9,7 @@
 		<meta charset="utf-8" /> 
 		<title><?=$siteTitle?></title>
 		<link rel="stylesheet" href="styles.css"/>
-		<script src="js/jquery-1.1.2.pack.js"></script>
+		<script src="js/jquery-1.4.js"></script>
 		<script src="js/jqueryprogressbar.js"></script>
 		</head>
 		<body>
