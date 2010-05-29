@@ -22,44 +22,43 @@ mysql_select_db($db) or die("Can not connect."); //checks if it connected correc
 $query="SELECT * FROM $table ORDER BY `No` DESC LIMIT  0, 1";
 $result = mysql_query($query);
 if ($result) {
-	// Dev note: do we even need the while loop...
-	while ($array = mysql_fetch_assoc($result)) {
-		$No                     = "$array[No]"; 
-		$SSTime               = "$array[SSDateTime]";
+      $array = mysql_fetch_assoc($result);
+		$No                       = "$array[No]";
+		$SSTime              = "$array[SSDateTime]";
 		 
-		$Username           = "$array[Username]"; 
-		$Account              = "$array[Account]"; 
-		$AmountOwing      = "$array[AmountOwing]";
+		$Username          = "$array[Username]";
+		$Account               = "$array[Account]";
+		$AmountOwing    = "$array[AmountOwing]";
 		
-		$TodaysDate             = "$array[TodaysDate]"; 
-		$DataQuotaGB            = "$array[DataQuotaGB]"; 
-		$DataUsedGB             = "$array[DataUsedGB]"; 
-		$DataOffPeakGB          = "$array[DataOffPeakGB]"; 
+		$TodaysDate        = "$array[TodaysDate]";
+		$DataQuotaGB     = "$array[DataQuotaGB]";
+		$DataUsedGB      = "$array[DataUsedGB]"; 
+		$DataOffPeakGB  = "$array[DataOffPeakGB]"; 
 		$TodayDataSentTotalGB   = "$array[TodayDataSentTotalGB]"; 
 		$TodayDataRcvdTotalGB   = "$array[TodayDataRcvdTotalGB]"; 
 		$TodayDataSentOffPeakGB = "$array[TodayDataSentOffPeakGB]"; 
 		$TodayDataRcvdOffPeakGB = "$array[TodayDataRcvdOffPeakGB]"; 
-		$DaysLeftTillReBill     = "$array[DaysLeftTillReBill]"; 
-		$TotalLeftGB            = "$array[TotalLeftGB]"; 
-		$TotalLeftFromCapGB     = "$array[TotalLeftFromCapGB]"; 
-		$UsePerDayGB            = "$array[UsePerDayGB]"; 
+		$DaysLeftTillReBill         = "$array[DaysLeftTillReBill]";
+		$TotalLeftGB                    = "$array[TotalLeftGB]";
+		$TotalLeftFromCapGB   = "$array[TotalLeftFromCapGB]"; 
+		$UsePerDayGB               = "$array[UsePerDayGB]";
 		$TotalSendOnPeakToday   = "$array[TotalSendOnPeakToday]"; 
 		$TotalRcvdOnPeakToday   = "$array[TotalRcvdOnPeakToday]"; 
 		$LastBilled             = "$array[LastBilled]"; 
 		$NextBill               = "$array[NextBill]";                 
-		$PercentLeft            = "$array[PercentLeft]";
-		$PercentUsed            = "$array[PercentUsed]";
-		$PeakStatus             = "$array[PeakStatus]";
-		$TodaysUsage            = "$array[TodaysUsage]";
-		$MissingData            = "$array[MissingData]";
-	}
-} 
+		$PercentLeft          = "$array[PercentLeft]";
+		$PercentUsed        = "$array[PercentUsed]";
+		$PeakStatus           = "$array[PeakStatus]";
+		$TodaysUsage       = "$array[TodaysUsage]";
+		$MissingData         = "$array[MissingData]";
+  }
 
 // Gets last 5 updates
 // Dev note: Check what is all needed and then change the * to that...
+// get last enery from each day for the last 5 days
 $last5 = mysql_query("SELECT * FROM $table ORDER BY `No` DESC LIMIT  0, $history");
 
-mysql_close($con); //Close connection to SQL DB
+//mysql_close($con); //Close connection to SQL DB
 
 $PeakStatus = offPeakStatus($startOffPeak,$endOffPeak);
          
@@ -83,14 +82,14 @@ else {
 $PercentLeft .= " %";
 $PercentUsed .= " %";
 
-$cleanTotalRcvdOnPeakToday = "$TotalRcvdOnPeakToday";
+$cleanTotalRcvdOnPeakToday = $TotalRcvdOnPeakToday;
 
 // If statement to check if it's getting close to going over daily limit or over.
-$TotalRcvdOnPeakTodayWARNING = $TotalRcvdOnPeakToday + "0.10 GB";
+$TotalRcvdOnPeakTodayWARNING = $TotalRcvdOnPeakToday + 0.10; // ***** adding ascii
 if ($TotalRcvdOnPeakToday > $UsePerDayGB) { 
-	$TotalRcvdOnPeakToday = " <span id='overonpeak'>".autoSizeFormat("$TotalRcvdOnPeakToday","GB","")."</span>";
+	$TotalRcvdOnPeakToday = " <span id='overonpeak'>".autoSizeFormat("$TotalRcvdOnPeakToday","GB","")."</span>";// changes varable type int to string
 } 
-	else if ($TotalRcvdOnPeakTodayWARNING > $UsePerDayGB){
+	else if ($TotalRcvdOnPeakTodayWARNING > $UsePerDayGB){  // fails as int to string comparasion
 		$TotalRcvdOnPeakToday = " <span id='warningonpeak'>".autoSizeFormat("$TotalRcvdOnPeakToday","GB","")."</span>";
 	}
 
@@ -102,7 +101,7 @@ else {
 	// $UsePerDayGB = autoSizeFormat("$UsePerDayGB","GB","");	
 	
 	// If days left is <= 0 then it's past the billing months
-	if ("$DaysLeftTillReBill" <= "0") {
+	if ("$DaysLeftTillReBill" <= "0") {   // todo: test ints and not ascii
 		# code...
 		$DaysLeftTillReBill = "past";
 	}
@@ -227,58 +226,59 @@ $nowtime = date("G:i");
 if ($nowtime > "0:00" And $nowtime < "0:11") 
 	{ 
 		//If statement to check if the cURL got anything.   
-		if ($Account == "") { $filestatus = "<div id='statuserror'>ERROR receiving data (timed out?)</div>";} 
-		else { $filestatus = "<div id='statuserrorfetch'>Fetched partial data</div>";}
+		if ($Account == "")
+                    { $filestatus = "<div id='statuserror'>ERROR receiving data (timed out?)</div>";}
+		else
+                    { $filestatus = "<div id='statuserrorfetch'>Fetched partial data</div>";}
 		}
 else {
 		//If statement to check if the cURL got anything.   
-		if ($Account == "") { $filestatus = "<div id='statuserror'>ERROR receiving data (timed out?)</div>";}
-		else { $filestatus = "<div id='statusok'>Received data successfully</div>";}
-
+		if ($Account == "")
+                    { $filestatus = "<div id='statuserror'>ERROR receiving data (timed out?)</div>";}
+		else
+                    { $filestatus = "<div id='statusok'>Received data successfully</div>";}
 	 }
 	
 	//$NextBill = "10";
 	// if statement to check if enough data has arrived **NEW**
 	if ("$MissingData" == "1") 
-		{ 
-		$filestatus = "<div id='statuserrorfetch'>Missing data</div>";
-			}
-	if ("$MissingData" == "2") {
-		$filestatus = "<div id='statuserrorfetch'>Billing period is being reset...</div>";
-	}
+            {  $filestatus = "<div id='statuserrorfetch'>Missing data</div>";}
+	if ("$MissingData" == "2")
+            {	$filestatus = "<div id='statuserrorfetch'>Billing period is being reset...</div>";}
 //echo $NextBill;
-	echo "$filestatus";
-	echo "$ifconfails";
-	echo "$databasestatus"; // databasestatus #3 (currently disabled)
+	echo $filestatus;
+	echo $ifconfails;
+	echo $databasestatus;     // databasestatus #3 (currently disabled)
 	echo "<div id ='data'>$displayresults</div>";
+
+        echo '<div id="last">'; // Used for "p" in CSS
 	
-		echo '<div id="last">'; // Used for "p" in CSS
-	
-		//Last 5 updates below:
-		echo "<p>Last $history updates</p>";
-			?>
-				<div id="last5">
-		
-				<table id='pastFewRefresh'>		
-				<tr>
-					<th class='thtime'>Date/Time</th>
-					<th class='TSOPT'>Upload</th>
-					<th class='TROPT'>Download</th>
-				</tr>
-				<?
-				echo "\n"; // Keep code clean
+	//Last 5 updates below:
+	echo "<p>Last $history updates</p>";
+	?>
+	<div id="last5">
+		<table id='pastFewRefresh'>		
+		<tr>
+                    <th class='thtime'>Date/Time</th>
+                    <th class='TSOPT'>Upload</th>
+                    <th class='TROPT'>Download</th>
+		</tr>
+                <br>
+		<?
+		//echo "\n"; // Keep code clean
 				// Gets last 5 updates + displays it (needs to be changed to div tags or span or....?)
-				if ("$MissingData" != "") {
+				if ($MissingData  != "") {  
 					# If data has arrived then do the following
 
-					while($row = mysql_fetch_array($last5)) 
+					while($row = mysql_fetch_array($last5))   
 					  {
-					echo "<tr>".
+                                        echo "<tr>".
 					"<td class='thtime'>". $row['SSDateTime'] ."</td>".        
 					"<td class='TSOPT'>". autoSizeFormat("$row[TotalSendOnPeakToday]","GB","") ."</td>".
 					"<td class='TROPT'>". autoSizeFormat("$row[TotalRcvdOnPeakToday]","GB","") ."</td></tr>\n";
 					  }
 				}
+                                mysql_close($con); //Close connection to SQL DB
 				echo "</table>"; //Table ends
 
 				if ("$MissingData" != "") {
