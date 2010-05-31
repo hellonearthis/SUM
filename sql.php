@@ -237,7 +237,8 @@ $con = mysql_connect("$host","$user","$pass");
 		'%d', -- TodaysUsage
 		'%d', -- MissingData
 		'%s')",#-- URLoutput
-		
+
+
 		 // CURRENT DATE
 		 mysql_real_escape_string("$SSDateTime"),
 		
@@ -283,7 +284,28 @@ if ($con) {
 			//Execute query to create table
 			if (mysql_query($sqlTableCreate,$con)) {
 				debugIs("Created new table '$table' successfully or one already exsits");
-				
+
+        //todo: read last enteries data usage and compare to current numbers pulled
+//
+                                $query = ("SELECT TodayDataSentTotalGB,TodayDataRcvdTotalGB,MAX(No) FROM  $table");
+                                $result = mysql_query($query);
+                                if ($result) {
+                                    $tarray = mysql_fetch_array($result);
+                                    echo $tarray[TodayDataSentTotalGB].' last TodayDataSentTotalGB<br>';
+                                    echo $tarray[TodayDataRcvdTotalGB].' last TodayDataRcvdTotalGB<br>';
+
+                                    echo $array[TodayDataSentTotalGB].' TodayDataSentTotalGB<br>';
+                                    echo $array[TodayDataRcvdTotalGB].' TodayDataRcvdTotalGB<br>';
+
+				}
+//                                    $tarray = mysql_fetch_assoc($result);
+//                                    if ( $array[TodayDataSentTotalGB]  == $tarray[TodayDataSentTotalGB]  and $array[TodayDataRcvdTotalGB] == $tarray[TodayDataRcvdTotalGB]){
+//                                                debugIs("<b>No need to update</b>");
+//                                                exit;
+//                                            ;} else       { debugIs("<b>it ok</b>");}
+//
+//                                }
+               //                 else {       debugIs("<b>bugger </b>"); }
 				#Update table
 				if (mysql_query($sqlTableUpdate,$con)) {debugIs("<b>Updated table '$table' successfully</b>");}
 				else {debugIs("<font color=\"red\">Failed</font> updating table '$table': ".mysql_error()."");}
