@@ -287,24 +287,17 @@ if ($con) {
 
         //todo: read last enteries data usage and compare to current numbers pulled
 //
-                                $query = ("SELECT TodayDataSentTotalGB,TodayDataRcvdTotalGB,MAX(No) FROM  $table");
+                                $query = ("SELECT TodayDataSentTotalGB,TodayDataRcvdTotalGB FROM  $table ORDER BY No DESC");
                                 $result = mysql_query($query);
+                             
                                 if ($result) {
-                                    $tarray = mysql_fetch_array($result);
-                                    echo $tarray[TodayDataSentTotalGB].' last TodayDataSentTotalGB<br>';
-                                    echo $tarray[TodayDataRcvdTotalGB].' last TodayDataRcvdTotalGB<br>';
+                                    $tarray = mysql_fetch_assoc($result);
+                                    if ( $array[TodayDataSentTotalGB]  == $tarray[TodayDataSentTotalGB]  and $array[TodayDataRcvdTotalGB] == $tarray[TodayDataRcvdTotalGB]){
+                                                debugIs("<b>No need to update</b>");
+                                                exit;
+                                            ;} else       { debugIs("<b>Updating the database</b>");}
 
-                                    echo $array[TodayDataSentTotalGB].' TodayDataSentTotalGB<br>';
-                                    echo $array[TodayDataRcvdTotalGB].' TodayDataRcvdTotalGB<br>';
-
-				}
-//                                    $tarray = mysql_fetch_assoc($result);
-//                                    if ( $array[TodayDataSentTotalGB]  == $tarray[TodayDataSentTotalGB]  and $array[TodayDataRcvdTotalGB] == $tarray[TodayDataRcvdTotalGB]){
-//                                                debugIs("<b>No need to update</b>");
-//                                                exit;
-//                                            ;} else       { debugIs("<b>it ok</b>");}
-//
-//                                }
+                                }
                //                 else {       debugIs("<b>bugger </b>"); }
 				#Update table
 				if (mysql_query($sqlTableUpdate,$con)) {debugIs("<b>Updated table '$table' successfully</b>");}
